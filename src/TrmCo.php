@@ -3,7 +3,7 @@
 namespace AndresAya\TrmCo;
 
 use SoapClient, SoapFault;
-use InvalidArgumentException;
+use InvalidArgumentException, RuntimeException;
 use DateTime;
 
 /**
@@ -50,7 +50,13 @@ class TrmCo
             );
 
             $client = new SoapClient($this->wsdl_url, $options);
-            return $client->queryTCRM(["tcrmQueryAssociatedDate" => $date]);
+            $response =  $client->queryTCRM(["tcrmQueryAssociatedDate" => $date]);
+
+            if(!isset($response->return)) {
+                throw new RuntimeException('No se pudo obtener la TRM para la fecha ' . $date);
+            }
+            return $response->return;
+
         } catch (SoapFault $e) {
             throw $e;
         }
