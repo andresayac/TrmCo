@@ -33,23 +33,16 @@ print_r($response);
 El resultado devuelto es un objeto con la siguiente estructura:
 
 ```php
-object(stdClass)#2 (1) {
-  ["return"]=>
-  object(stdClass)#3 (6) {
-    ["id"]=>
-    int(660701)
-    ["unit"]=>
-    string(3) "COP"
-    ["validityFrom"]=>
-    string(25) "2018-03-29T05:00:00.000Z"
-    ["validityTo"]=>
-    string(25) "2018-04-02T05:00:00.000Z"
-    ["value"]=>
-    float(2780.47)
-    ["success"]=>
-    bool(true)
-  }
-}
+
+stdClass Object
+(
+    [id] => 1530351
+    [unit] => COP
+    [validityFrom] => 2023-07-22T00:00:00-05:00
+    [validityTo] => 2023-07-24T00:00:00-05:00
+    [value] => 3971.38
+    [success] => 1
+)
 ```
 
 ## Nota
