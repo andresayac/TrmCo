@@ -13,6 +13,7 @@ composer require andresaya/trmco
 
 ## Ejemplo de Uso
 ```php
+<?php
 require 'vendor/autoload.php';
 
 use AndresAya\TrmCo\TrmCo;
