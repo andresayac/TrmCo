@@ -26,8 +26,12 @@ class TrmCo
      * @throws InvalidArgumentException Si la fecha proporcionada no es válida.
      * @throws SoapFault Si ocurre un error al hacer la solicitud al servicio web.
      */
-    public function query($date)
+    public function query($date = null)
     {
+
+        if ($date == null) {
+            $date = date('Y-m-d');
+        }
         // Validar el formato de la fecha
         if (!$this->validateDate($date)) {
             throw new InvalidArgumentException('La fecha proporcionada no es válida. Debe estar en formato YYYY-MM-DD y no ser anterior a 2013.');
