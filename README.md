@@ -19,7 +19,24 @@ require 'vendor/autoload.php';
 use AndresAya\TrmCo\TrmCo;
 
 $trmco = new TrmCo();
-$response = $trmco->query('2023-07-22');
+
+// get current TRM
+$response = $trmco->query()->get();
+
+// get a date based TRM
+$response = $trmco->query('2023-01-01')->get();
+
+// get current and convert to USD
+$response = $trmco->query()->copToUsd(15000);
+
+// get current and convert to COP
+$response = $trmco->query()->usdToCop(3);
+
+// get a date based TRM and convert to USD
+$response = $trmco->query('2023-01-01')->copToUsd(15000);
+
+// get a date based TRM and convert to COP
+$response = $trmco->query('2023-01-01')->usdToCop(3);
 
 print_r($response);
 ```
