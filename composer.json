@@ -1,8 +1,13 @@
 {
-    "name": "andresaya/trmcol",
+    "name": "andresaya/trmco",
     "description": "Obtener la TRM usando el servicio oficial de Super Financiera",
     "type": "library",
     "license": "MIT",
+    "keywords": ["TRM", "Colombia", "SuperFinanciera", "Pesos", "USD", "COP"],
+    "support": {
+        "issues": "https://github.com/andresayac/TrmCo/issues",
+        "source": "https://github.com/andresayac/TrmCo"
+    },
     "require": {
         "php": ">=7.3",
         "ext-soap": "*"
@@ -24,6 +29,9 @@
         {
             "name": "Andres Aya",
             "email": "andresayac@gmail.com"
+        },
+        {
+            "name": "Dixon Pedraza"
         }
     ]
 }
