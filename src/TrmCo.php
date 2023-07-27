@@ -12,6 +12,9 @@ use DateTime;
 class TrmCo
 {
     private $wsdl_url;
+    private $response;
+    private $value;
+    private $date;
 
     public function __construct()
     {
@@ -37,6 +40,8 @@ class TrmCo
             throw new InvalidArgumentException('La fecha proporcionada no es válida. Debe estar en formato YYYY-MM-DD y no ser anterior a 2013.');
         }
 
+        $this->date = $date;
+
         try {
             $options = array(
                 'location' => $this->wsdl_url,
@@ -52,14 +57,45 @@ class TrmCo
             $client = new SoapClient($this->wsdl_url, $options);
             $response =  $client->queryTCRM(["tcrmQueryAssociatedDate" => $date]);
 
-            if(!isset($response->return)) {
+            if (!isset($response->return)) {
                 throw new RuntimeException('No se pudo obtener la TRM para la fecha ' . $date);
             }
-            return $response->return;
 
+            $this->response =  $response->return;
+            $this->value =  $response->return->value;
+
+            return $this;
         } catch (SoapFault $e) {
             throw $e;
         }
+    }
+
+    public function get()
+    {
+        if (!isset($this->response))
+            $this->query();
+
+        return $this->response;
+    }
+
+    public function copToUsd($cop)
+    {
+        return [
+            'usd' => $cop / $this->value,
+            'cop' => $cop,
+            'trm' => $this->value,
+            'date' => $this->date,
+        ];
+    }
+
+    public function usdToCop($usd)
+    {
+        return [
+            'usd' => $usd,
+            'cop' => $usd * $this->value,
+            'trm' => $this->value,
+            'date' => $this->date,
+        ];
     }
 
     /**
