@@ -80,6 +80,10 @@ class TrmCo
 
     public function copToUsd($cop)
     {
+        if (!is_numeric($cop)) {
+            throw new InvalidArgumentException('La entrada debe ser un número');
+        }
+
         return [
             'usd' => $cop / $this->value,
             'cop' => $cop,
@@ -90,6 +94,10 @@ class TrmCo
 
     public function usdToCop($usd)
     {
+        if (!is_numeric($usd)) {
+            throw new InvalidArgumentException('La entrada debe ser un número');
+        }
+        
         return [
             'usd' => $usd,
             'cop' => $usd * $this->value,
