@@ -1,4 +1,5 @@
 {
+    "version": "1.0.2",
     "name": "andresaya/trmco",
     "description": "Obtener la TRM usando el servicio oficial de Super Financiera",
     "type": "library",
