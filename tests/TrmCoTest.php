@@ -43,11 +43,11 @@ class TrmCoTest extends TestCase
         // Aquí usamos un valor de ejemplo para COP, podrías usar un valor real.
         $result = $trmco->copToUsd(10000);
 
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('usd', $result);
-        $this->assertArrayHasKey('cop', $result);
-        $this->assertArrayHasKey('trm', $result);
-        $this->assertArrayHasKey('date', $result);
+        $this->assertIsObject($result);
+        $this->assertObjectHasAttribute('usd', $result);
+        $this->assertObjectHasAttribute('cop', $result);
+        $this->assertObjectHasAttribute('trm', $result);
+        $this->assertObjectHasAttribute('date', $result);
     }
 
     public function testCopToUsdWithNonNumericValue()
@@ -66,11 +66,11 @@ class TrmCoTest extends TestCase
         // Aquí usamos un valor de ejemplo para USD, podrías usar un valor real.
         $result = $trmco->usdToCop(100);
 
-        $this->assertIsArray($result);
-        $this->assertArrayHasKey('usd', $result);
-        $this->assertArrayHasKey('cop', $result);
-        $this->assertArrayHasKey('trm', $result);
-        $this->assertArrayHasKey('date', $result);
+        $this->assertIsObject($result);
+        $this->assertObjectHasAttribute('usd', $result);
+        $this->assertObjectHasAttribute('cop', $result);
+        $this->assertObjectHasAttribute('trm', $result);
+        $this->assertObjectHasAttribute('date', $result);
     }
 
     public function testUsdToCopWithNonNumericValue()

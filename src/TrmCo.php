@@ -78,33 +78,68 @@ class TrmCo
         return $this->response;
     }
 
-    public function copToUsd($cop)
+    /**
+     * Convierte una cantidad dada en pesos colombianos (COP) a dólares estadounidenses (USD).
+     *
+     * @param float $cop La cantidad en pesos colombianos a convertir.
+     * @return stdClass Los detalles de la conversión.
+     * @throws InvalidArgumentException Si la entrada no es un valor numérico o si es negativa.
+     * @throws RuntimeException Si los datos de la TRM no se han obtenido correctamente.
+     */
+    public function copToUsd($cop = 1)
     {
         if (!is_numeric($cop)) {
-            throw new InvalidArgumentException('La entrada debe ser un número');
+            throw new InvalidArgumentException('La entrada debe ser un número.');
         }
 
-        return [
-            'usd' => $cop / $this->value,
-            'cop' => $cop,
-            'trm' => $this->value,
-            'date' => $this->date,
-        ];
+        if ($cop < 0) {
+            throw new InvalidArgumentException('La entrada no puede ser un número negativo.');
+        }
+
+        if (!$this->value) {
+            throw new RuntimeException('Los datos de la TRM no se han obtenido correctamente.');
+        }
+
+        $conversion = new \stdClass();
+        $conversion->usd = $cop / $this->value;
+        $conversion->cop = $cop;
+        $conversion->trm = $this->value;
+        $conversion->date = $this->date;
+
+        return $conversion;
     }
 
-    public function usdToCop($usd)
+    /**
+     * Convierte una cantidad dada en dólares estadounidenses (USD) a pesos colombianos (COP).
+     *
+     * @param float $usd La cantidad en dólares estadounidenses a convertir.
+     * @return stdClass Los detalles de la conversión.
+     * @throws InvalidArgumentException Si la entrada no es un valor numérico o si es negativa.
+     * @throws RuntimeException Si los datos de la TRM no se han obtenido correctamente.
+     */
+    public function usdToCop($usd = 1)
     {
         if (!is_numeric($usd)) {
-            throw new InvalidArgumentException('La entrada debe ser un número');
+            throw new InvalidArgumentException('La entrada debe ser un número.');
         }
-        
-        return [
-            'usd' => $usd,
-            'cop' => $usd * $this->value,
-            'trm' => $this->value,
-            'date' => $this->date,
-        ];
+
+        if ($usd < 0) {
+            throw new InvalidArgumentException('La entrada no puede ser un número negativo.');
+        }
+
+        if (!$this->value) {
+            throw new RuntimeException('Los datos de la TRM no se han obtenido correctamente.');
+        }
+
+        $conversion = new \stdClass();
+        $conversion->usd = $usd;
+        $conversion->cop = $usd * $this->value;
+        $conversion->trm = $this->value;
+        $conversion->date = $this->date;
+
+        return $conversion;
     }
+
 
     /**
      * Valida una fecha.
